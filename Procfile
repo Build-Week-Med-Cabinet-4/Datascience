@@ -1,1 +1,1 @@
-web: gunicorn twitoff:APP -t 1200
+web: gunicorn strain-api:API -t 1200
