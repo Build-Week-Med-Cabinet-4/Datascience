@@ -6,6 +6,7 @@ verify_ssl = true
 [dev-packages]
 
 [packages]
+<<<<<<< HEAD
 flask = "*"
 flask-sqlalchemy = "*"
 python-decouple = "*"
@@ -17,3 +18,24 @@ scikit-learn = "==0.20.1"
 
 [requires]
 python_version = "3.6"
+=======
+pip = "*"
+requests = "*"
+pandas = "*"
+gunicorn = "*"
+spacy = "*"
+gensim = "*"
+ipykernel = "*"
+nltk = "*"
+numpy = "*"
+scikit-learn = "==0.20.1"
+scipy = "*"
+seaborn = "*"
+squarify = "*"
+flask = "*"
+pyLDAvis = "*"
+flask_sqlalchemy = "*"
+
+[requires]
+python_version = "3.7"
+>>>>>>> 4eb0c3f0a1e3a326f8e1ebc2cf29779fccfb3e09
