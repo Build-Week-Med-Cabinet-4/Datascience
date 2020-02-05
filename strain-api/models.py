@@ -7,14 +7,32 @@ import pandas as pd
 # Setting global var
 DB = SQLAlchemy()
 
+def database_update():
+
+    df = pd.read_csv("")
+
+    # Saving prediction into database
+    data_in = User_input(id=df[0], name=df['Strain'], race=df['Type'],
+                         rating=df['Rating'], effects=df['Effects'],
+                         flavor=[df['Flavor'], description=df['Description'])
+
+    DB.session.add(data_in)
+    DB.session.commit()
+
 # User input class sets up database tabel
 class User_input(DB.Model):
     id = DB.Column(DB.Integer, primary_key=True)
-    prediction = DB.Column(DB.Integer, nullable=False) # Will have ot change once I now the prediction format
+    name = DB.Column(DB.String(20), nullable=False)
+    race = DB.Column(DB.String(20), nullable=False)
+    rating = DB.Column(DB.Integer, nullable=False)
+    effects = DB.Column(DB.String(250), nullable=False)
+    flavor = DB.Column(DB.String(100), nullable=False)
+    description = DB.Column(DB.String(1000), nullable=False)
+
 
     # Returns predictions as string
     def __repr__(self):
-        return '{}'.format(self.prediction)
+        return '{}'.format(self.id)
 
 
 # Predictor class loads in pickled model, predicts recommandations with predict method

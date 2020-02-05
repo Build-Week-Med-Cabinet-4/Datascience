@@ -5,14 +5,11 @@ import numpy as np
 from decouple import config
 from flask import Flask, request, jsonify
 from sklearn.externals import joblib
-from .models import DB, User_input, Predictor
+from .models import DB, User_input, Predictor, database_update
 
-
-# Loading in the trained model pickle file
-#lr_model = joblib.load("model.pkl") # Load "model.pkl"
-#print ('Model loaded')
 
 lr_model = Predictor()
+
 
 def create_api():
     '''
@@ -25,14 +22,20 @@ def create_api():
     api.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
     DB.init_app(api)
 
-    @api.route('/')
+    @api.route('/reset')
     def root():
-        DB.create_all()
-        return 'Startup Test'
 
+        return 'Start-Up Test'
+
+    @api.route('/reset')
+    def root():
+        DB.drop_all()
+        DB.create_all()
+        database_update()
+        return 'Reset Database Completed'
 
     @api.route('/search', methods=['GET'])
-    def  search():
+    def search():
         '''
         Overview: takes in prediction id and querys the matching prediction.
         this prevents the prediction step from having to be done more than
@@ -82,20 +85,21 @@ def create_api():
                 min_rating = inputs['min_rating'][0]
                 num_resp = inputs['num_resp'][0]
 
-                # Creating input string, predicting on the string, converting results to int
+                # Creating input string, predicting on the string
+                # Converting results to int
                 df_inputs = str(positive_effect+' '+negative_effect+' '+medical_effect+' '+flavors+' '+desc)
                 prediction = lr_model.predict(df_inputs, output_size=1)
                 pred = int(prediction)
 
-                # Saving prediction into database
-                pred_in = User_input(prediction=pred)
-                DB.session.add(pred_in)
-                DB.session.commit()
 
                 # Querying prediction, returning result prediction and id in json format
-                result = User_input.query.filter(User_input.prediction==pred).all()
-                result = result[0]
-                return jsonify({'prediction': result.prediction, 'id' : result.id})
+                result = User_input.query.filter(User_input.id==pred).all()
+                return jsonify({
+                                    'id': result.id,
+                                    'name': result.name,
+                                    'race': result.race,
+                                    'flavor': result.flavor,
+                                    'effects': result.effects})
 
             # If error occurs
             except:
