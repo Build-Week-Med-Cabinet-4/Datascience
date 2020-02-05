@@ -26,8 +26,8 @@ def database_update():
 # User input class sets up database tabel
 class User_input(DB.Model):
     id = DB.Column(DB.Integer, primary_key=True)
-    name = DB.Column(DB.String(20), nullable=False)
-    race = DB.Column(DB.String(20), nullable=False)
+    name = DB.Column(DB.String(200), nullable=False)
+    race = DB.Column(DB.String(200), nullable=False)
     rating = DB.Column(DB.Integer, nullable=False)
     effects = DB.Column(DB.String(250), nullable=False)
     flavor = DB.Column(DB.String(100), nullable=False)
