@@ -22,13 +22,13 @@ def create_api():
     api.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
     DB.init_app(api)
 
-    @api.route('/reset')
+    @api.route('/')
     def root():
 
         return 'Start-Up Test'
 
     @api.route('/reset')
-    def root():
+    def reset():
         DB.drop_all()
         DB.create_all()
         database_update()

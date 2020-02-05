@@ -9,14 +9,17 @@ DB = SQLAlchemy()
 
 def database_update():
 
-    df = pd.read_csv("")
+    df = pd.read_csv("https://raw.githubusercontent.com/Build-Week-Med-Cabinet-4/Datascience/master/strain-api/Cannabis_Strains_Features.csv")
+    #df = df.set_index('id')
 
     # Saving prediction into database
-    data_in = User_input(id=df[0], name=df['Strain'], race=df['Type'],
-                         rating=df['Rating'], effects=df['Effects'],
-                         flavor=[df['Flavor'], description=df['Description'])
+    for i in df.index:
+        data_in = User_input(id=i, name=df['Strain'][i], race=df['Type'][i],
+                            rating=df['Rating'][i], effects=df['Effects'][i],
+                            flavor=df['Flavor'][i], description=df['Description'][i])
+        #import pdb; pdb.set_trace()
 
-    DB.session.add(data_in)
+        DB.session.add(data_in)
     DB.session.commit()
 
 # User input class sets up database tabel
