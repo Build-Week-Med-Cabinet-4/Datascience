@@ -24,7 +24,6 @@ def create_api():
 
     @api.route('/')
     def root():
-
         return 'Start-Up Test'
 
     @api.route('/reset')
