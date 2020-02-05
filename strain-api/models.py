@@ -3,7 +3,7 @@ from flask_sqlalchemy import SQLAlchemy
 import os
 import pickle
 import pandas as pd
-import time
+
 
 # Setting global var
 DB = SQLAlchemy()
@@ -21,7 +21,6 @@ def database_update():
         #import pdb; pdb.set_trace()
 
         DB.session.add(data_in)
-        time.sleep(.01)
     DB.session.commit()
 
 # User input class sets up database tabel
