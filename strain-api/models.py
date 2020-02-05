@@ -12,7 +12,7 @@ def database_update():
 
     df = pd.read_csv("https://raw.githubusercontent.com/Build-Week-Med-Cabinet-4/Datascience/master/strain-api/Cannabis_Strains_Features.csv")
     #df = df.set_index('id')
-
+    df = df.head(50)
     # Saving prediction into database
     for i in df.index:
         data_in = User_input(id=i, name=df['Strain'][i], race=df['Type'][i],
