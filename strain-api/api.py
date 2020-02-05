@@ -84,6 +84,7 @@ def create_api():
                 min_rating = inputs['min_rating'][0]
                 num_resp = inputs['num_resp'][0]
 
+                #
                 # Creating input string, predicting on the string
                 # Converting results to int
                 df_inputs = str(positive_effect+' '+negative_effect+' '+medical_effect+' '+flavors+' '+desc)
@@ -93,12 +94,18 @@ def create_api():
 
                 # Querying prediction, returning result prediction and id in json format
                 result = User_input.query.filter(User_input.id==pred).all()
+                result = result[0]
+
                 return jsonify({
-                                    'id': result.id,
-                                    'name': result.name,
-                                    'race': result.race,
-                                    'flavor': result.flavor,
-                                    'effects': result.effects})
+                                'id': result.id,
+                                'name': result.name,
+                                'race': result.race,
+                                'rating':result.rating,
+                                'effects': result.effects,
+                                'flavor': result.flavor,
+                                'description': result.description
+                                })
+
 
             # If error occurs
             except:
