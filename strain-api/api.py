@@ -46,7 +46,15 @@ def create_api():
             id = id['id']
             result = User_input.query.filter(User_input.id==id).all()
             result = result[0]
-            return jsonify({'prediction': result.prediction})
+            return jsonify({
+                            'id': result.id,
+                            'name': result.name,
+                            'race': result.race,
+                            'rating':result.rating,
+                            'effects': result.effects,
+                            'flavor': result.flavor,
+                            'description': result.description
+                            })
 
         except:
 
@@ -76,15 +84,14 @@ def create_api():
                 inputs = request.get_json()
 
                 # Breaking down the dictionary
-                positive_effect = inputs['positive_effect'][0]
-                negative_effect = inputs['negative_effect'][0]
-                medical_effect = inputs['negative_effect'][0]
-                flavors = inputs['flavor'][0]
-                desc = inputs['desc'][0]
+                positive_effect = inputs['positive_effect']
+                negative_effect = inputs['negative_effect']
+                medical_effect = inputs['negative_effect']
+                flavors = inputs['flavor']
+                desc = inputs['desc']
                 min_rating = inputs['min_rating'][0]
                 num_resp = inputs['num_resp'][0]
 
-                #
                 # Creating input string, predicting on the string
                 # Converting results to int
                 df_inputs = str(positive_effect+' '+negative_effect+' '+medical_effect+' '+flavors+' '+desc)
