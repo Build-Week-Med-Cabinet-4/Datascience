@@ -31,7 +31,7 @@ class User_input(DB.Model):
     rating = DB.Column(DB.Integer, nullable=False)
     effects = DB.Column(DB.String(250), nullable=False)
     flavor = DB.Column(DB.String(100), nullable=False)
-    description = DB.Column(DB.String(1000), nullable=False)
+    description = DB.Column(DB.String(5000), nullable=False)
 
 
     # Returns predictions as string
