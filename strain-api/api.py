@@ -33,39 +33,36 @@ def create_api():
         database_update()
         return 'Reset Database Completed'
 
-    @api.route('/search', methods=['GET'])
-    def search():
+    @api.route('/search/<id>', methods=['GET'])
+    def search(id=None):
         '''
         Overview: takes in prediction id and querys the matching prediction.
         this prevents the prediction step from having to be done more than
         once. If id is not inputed an error will be returned.
         '''
+        id = id
+        if id is None:
+            # Return tracback response
+            print('You must specify the strain id')
+            return jsonify({'trace': traceback.format_exc()})
 
         try:
-            id = request.get_json()
-            try:
-                id = id['id']
-                assert isinstance(id, int)
-            except:
-                print('You must input a valid strain id in form of int')
-
             result = User_input.query.filter(User_input.id==id).all()
             result = result[0]
             return jsonify({
                             'id': result.id,
                             'name': result.name,
                             'race': result.race,
-                            'rating':result.rating,
-                            'effects': result.effects,
                             'flavor': result.flavor,
+                            'positive': result.positive,
+                            'negative': result.negative,
+                            'medical': result.medical,
+                            'rating':result.rating,
                             'description': result.description
                             })
+        except Exception as e:
 
-        except:
-
-            # Return tracback response
-            print('You must specify the strain id')
-            return jsonify({'trace': traceback.format_exc()})
+            return str(e)
 
 
     @api.route('/predict', methods=['POST'])
