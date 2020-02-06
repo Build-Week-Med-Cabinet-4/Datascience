@@ -11,7 +11,7 @@ DB = SQLAlchemy()
 def database_update():
 
     # Reading in csv file from github
-    df = pd.read_csv("https://raw.githubusercontent.com/Build-Week-Med-Cabinet-4/Datascience/master/strain_data.csv")
+    df = pd.read_csv("https://raw.githubusercontent.com/Build-Week-Med-Cabinet-4/Datascience/master/final_merge.csv")
 
     # Saving prediction into database
     for i in df.index:
