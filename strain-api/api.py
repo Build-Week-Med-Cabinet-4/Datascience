@@ -92,6 +92,7 @@ def create_api():
                 min_rating = inputs['min_rating'][0]
                 num_resp = inputs['num_resp'][0]
 
+
                 # Creating input string, predicting on the string
                 # Converting results to int
                 df_inputs = str(positive_effect+' '+negative_effect+' '+medical_effect+' '+flavors+' '+desc)
