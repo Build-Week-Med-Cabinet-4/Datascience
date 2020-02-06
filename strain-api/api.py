@@ -50,13 +50,15 @@ def create_api():
             result = User_input.query.filter(User_input.id==id).all()
             result = result[0]
             return jsonify({
-                                'id': result.id,
-                                'name': result.name,
-                                'race': result.race,
-                                'rating':result.rating,
-                                'effects': result.effects,
-                                'flavor': result.flavor,
-                                'description': result.description
+                            'id': result.id,
+                            'name': result.name,
+                            'race': result.race,
+                            'flavor': result.flavor,
+                            'positive': result.positive,
+                            'negative': result.negative,
+                            'medical': result.medical,
+                            'rating':result.rating,
+                            'description': result.description
                             })
 
         except Exception as e:
