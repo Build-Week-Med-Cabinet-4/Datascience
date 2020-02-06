@@ -55,11 +55,9 @@ def create_api():
                             'id': result.id,
                             'name': result.name,
                             'race': result.race,
-                            'flavor': result.flavor,
-                            'positive': result.positive,
-                            'negative': result.negative,
-                            'medical': result.medical,
                             'rating':result.rating,
+                            'effects': result.effects,
+                            'flavor': result.flavor,
                             'description': result.description
                             })
 
@@ -127,11 +125,9 @@ def create_api():
                                 'id': result.id,
                                 'name': result.name,
                                 'race': result.race,
-                                'flavor': result.flavor,
-                                'positive': result.positive,
-                                'negative': result.negative,
-                                'medical': result.medical,
                                 'rating':result.rating,
+                                'effects': result.effects,
+                                'flavor': result.flavor,
                                 'description': result.description
                                 })
 

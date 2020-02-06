@@ -11,14 +11,13 @@ DB = SQLAlchemy()
 def database_update():
 
     # Reading in csv file from github
-    df = pd.read_csv("https://raw.githubusercontent.com/Build-Week-Med-Cabinet-4/Datascience/master/final_merge3.csv")
+    df = pd.read_csv("https://raw.githubusercontent.com/Build-Week-Med-Cabinet-4/Datascience/master/strain_data.csv")
 
     # Saving prediction into database
     for i in df.index:
-        data_in = User_input(id=df['id'][i], name=df['name'][i], race=df['race'][i],
-                             flavor=df['flavors'][i], positive=df['positive'][i],
-                             negative=df['negative'][i], medical=df['medical'][i],
-                            rating=df['Rating'][i], description=df['Description'][i])
+        data_in = User_input(id=i, name=df['Strain'][i], race=df['Type'][i],
+                            rating=df['Rating'][i], effects=df['Effects'][i],
+                            flavor=df['Flavor'][i], description=df['Description'][i])
         #import pdb; pdb.set_trace()
 
         DB.session.add(data_in)
@@ -29,11 +28,9 @@ class User_input(DB.Model):
     id = DB.Column(DB.Integer, primary_key=True)
     name = DB.Column(DB.String(200), nullable=False)
     race = DB.Column(DB.String(200), nullable=False)
-    flavor = DB.Column(DB.String(200), nullable=False)
-    positive = DB.Column(DB.String(200), nullable=False)
-    negative = DB.Column(DB.String(200), nullable=False)
-    medical = DB.Column(DB.String(200), nullable=False)
     rating = DB.Column(DB.Integer, nullable=False)
+    effects = DB.Column(DB.String(250), nullable=False)
+    flavor = DB.Column(DB.String(100), nullable=False)
     description = DB.Column(DB.String(5000), nullable=False)
 
 
