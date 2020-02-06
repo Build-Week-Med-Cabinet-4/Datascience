@@ -43,23 +43,30 @@ def create_api():
 
         try:
             id = request.get_json()
-            id = id['id']
+            try:
+                id = id['id']
+                assert isinstance(id, int)
+            except:
+                print('You must input a valid strain id in form of int')
+
             result = User_input.query.filter(User_input.id==id).all()
             result = result[0]
             return jsonify({
                             'id': result.id,
                             'name': result.name,
                             'race': result.race,
-                            'rating':result.rating,
-                            'effects': result.effects,
                             'flavor': result.flavor,
+                            'positive': result.positive,
+                            'negative': result.negative,
+                            'medical': result.medical,
+                            'rating':result.rating,
                             'description': result.description
                             })
 
         except:
 
             # Return tracback response
-            print('You must specify the user id')
+            print('You must specify the strain id')
             return jsonify({'trace': traceback.format_exc()})
 
 
@@ -84,14 +91,26 @@ def create_api():
                 inputs = request.get_json()
 
                 # Breaking down the dictionary
-                positive_effect = inputs['positive_effect']
-                negative_effect = inputs['negative_effect']
-                medical_effect = inputs['negative_effect']
-                flavors = inputs['flavor']
-                desc = inputs['desc']
-                min_rating = inputs['min_rating'][0]
-                num_resp = inputs['num_resp'][0]
-
+                try:
+                    positive_effect = inputs['positive_effect']
+                except:
+                    positive_effect = ""
+                try:
+                    negative_effect = inputs['negative_effect']
+                except:
+                    negative_effect = ""
+                try:
+                    medical_effect = inputs['negative_effect']
+                except:
+                    medical_effect = ""
+                try:
+                    flavors = inputs['flavor']
+                except:
+                    flavors = ""
+                try:
+                    desc = inputs['desc']
+                except:
+                    desc = ""
 
                 # Creating input string, predicting on the string
                 # Converting results to int
@@ -108,9 +127,11 @@ def create_api():
                                 'id': result.id,
                                 'name': result.name,
                                 'race': result.race,
-                                'rating':result.rating,
-                                'effects': result.effects,
                                 'flavor': result.flavor,
+                                'positive': result.positive,
+                                'negative': result.negative,
+                                'medical': result.medical,
+                                'rating':result.rating,
                                 'description': result.description
                                 })
 
