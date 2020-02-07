@@ -102,3 +102,4 @@ except Exception as e:
 def ts_predict(input_index):
     tokens = loaded_tfidf.transform([df.Description[input_index]]).todense()
     return loaded_nn.kneighbors(tokens, n_neighbors=3)[1][0]
+
