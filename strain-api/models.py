@@ -17,7 +17,7 @@ def database_update():
     is called with special decorator route.
     '''
     url = ("https://raw.githubusercontent.com/Build-Week-Med-" +
-           "Cabinet-4/Datascience/master/final_merge3.csv")
+           "Cabinet-4/Datascience/master/best_merge.csv")
 
     # Reading in csv file from github
     df = pd.read_csv(url)
