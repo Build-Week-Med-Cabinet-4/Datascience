@@ -63,7 +63,7 @@ class Predictor():
             self.nlp = spacy.load("en_core_web_sm")
         except Exception as e:
 
-            return str(e)
+            
             # print('Installing en_core_web_sm')
             os.system('python -m spacy download en_core_web_sm')
             self.nlp = spacy.load("en_core_web_sm")
