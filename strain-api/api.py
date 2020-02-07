@@ -8,7 +8,7 @@ from sklearn.externals import joblib
 from .models import DB, User_input, database_update, ts_predict, Predictor
 
 # Calling Predictor class
-lr_model = Predictor()
+#lr_model = Predictor()
 
 
 # Creating a function for launching api
