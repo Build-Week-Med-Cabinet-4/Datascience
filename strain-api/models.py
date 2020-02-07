@@ -55,19 +55,37 @@ class User_input(DB.Model):
     description = DB.Column(DB.String(5000), nullable=False)
 
 
-# Predictor class loads in pickled model,
-# Predicts recommandations with predict method
+
 class Predictor():
     def __init__(self):
-        #try:
-        # print('Loading models from expected local directory')
-        self.nn = joblib.load(open('./strain-api/Models/nn.pkl', 'rb'))
-        self.tfidf = joblib.load(open('./strain-api/Models/tfidf.pkl', 'rb'))
-        # print('Loaded Successfully')
+        try:
+            print('Loading models from expected local directory')
+            self.nn = pickle.load(open('./strain-api/Models/nn.pkl','rb'))
+            self.tfidf = pickle.load(open('./strain-api/Models/tfidf.pkl','rb'))
+            print('Loaded Successfully')
+        except Exception as e:
+            print(e)
+            print('Trying to load with OS Library')
+            self.nn = pickle.load(open(os.getcwd()+'./strain-api/Models/nn.pkl','rb'))
+            self.tfidf = pickle.load(open(os.getcwd()+'./strain-api/Models/tfidf.pkl','rb'))
+            print('Loaded Successfully')
 
     def predict(self, input_text, output_size):
         tokens = self.tfidf.transform([input_text]).todense()
         return self.nn.kneighbors(tokens, n_neighbors=output_size)[1][0]
+# Predictor class loads in pickled model,
+# Predicts recommandations with predict method
+# class Predictor():
+#    def __init__(self):
+#        #try:
+#        # print('Loading models from expected local directory')
+#        self.nn = joblib.load(open('./strain-api/Models/nn.pkl', 'rb'))
+#        self.tfidf = joblib.load(open('./strain-api/Models/tfidf.pkl', 'rb'))
+#        # print('Loaded Successfully')
+#
+#    def predict(self, input_text, output_size):
+#        tokens = self.tfidf.transform([input_text]).todense()
+#        return self.nn.kneighbors(tokens, n_neighbors=output_size)[1][0]
 
 
 # Recommender class loads in pickled model, recommend several strain ids
