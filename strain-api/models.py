@@ -4,6 +4,7 @@ import os
 import pickle
 import pandas as pd
 import spacy
+import en_core_web_sm
 import joblib
 
 # Setting global var for sqlalchemy
@@ -60,13 +61,13 @@ class User_input(DB.Model):
 class Predictor():
     def __init__(self):
         try:
-            self.nlp = spacy.load("en_core_web_sm")
+            self.nlp = en_core_web_sm.load()
         except Exception as e:
 
-            
+
             # print('Installing en_core_web_sm')
             os.system('python -m spacy download en_core_web_sm')
-            self.nlp = spacy.load("en_core_web_sm")
+            self.nlp = en_core_web_sm.load()
 
         try:
             # print('Loading models from expected local directory')
