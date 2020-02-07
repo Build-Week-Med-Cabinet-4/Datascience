@@ -1,16 +1,17 @@
 import os
 import spacy
+import en_core_web_sm
 
 
 class Tokenizer__():
     def __init__(self):
-        try:
-            self.nlp = spacy.load("en_core_web_sm")
-        except Exception as e:
-            print(e)
-            print('Installing en_core_web_sm')
-            os.system('python -m spacy download en_core_web_sm')
-            self.nlp = spacy.load("en_core_web_sm")
+        # try:
+        self.nlp = en_core_web_sm.load()
+        # except Exception as e:
+        #     print(e)
+        #     print('Installing en_core_web_sm')
+        #     os.system('python -m spacy download en_core_web_sm')
+        #     self.nlp = spacy.load("en_core_web_sm")
 
     def tokenize(self, document):
         doc = self.nlp(document)
