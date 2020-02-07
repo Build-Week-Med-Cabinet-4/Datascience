@@ -16,8 +16,8 @@ def database_update():
     Overview: used to load in csv and and reset User_input table in database
     is called with special decorator route.
     '''
-    url = "https://raw.githubusercontent.com/Build-Week-Med-" \
-          "Cabinet-4/Datascience/master/final_merge3.csv"
+    url = ("https://raw.githubusercontent.com/Build-Week-Med-" +
+           "Cabinet-4/Datascience/master/final_merge3.csv")
 
     # Reading in csv file from github
     df = pd.read_csv(url)
@@ -70,15 +70,15 @@ class Predictor():
         try:
             print('Loading models from expected local directory')
             self.nn = joblib.load(open('./strain-api/Models/nn.pkl', 'rb'))
-            self.tfidf = joblib.load(open('./strain-api/Models'
+            self.tfidf = joblib.load(open('./strain-api/Models' +
                                           '/tfidf.pkl', 'rb'))
             print('Loaded Successfully')
         except Exception as e:
             print(e)
             print('Trying to load with OS Library')
-            self.nn = joblib.load(open(os.getcwd()+'./strain-api/Models'
+            self.nn = joblib.load(open(os.getcwd()+'./strain-api/Models' +
                                        '/nn.pkl', 'rb'))
-            self.tfidf = joblib.load(open(os.getcwd()+'./strain-api/Models'
+            self.tfidf = joblib.load(open(os.getcwd()+'./strain-api/Models' +
                                           '/tfidf.pkl', 'rb'))
             print('Loaded Successfully')
 
