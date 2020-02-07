@@ -54,7 +54,7 @@ class User_input(DB.Model):
     flavor = DB.Column(DB.String(250), nullable=False)
     description = DB.Column(DB.String(5000), nullable=False)
 
-
+'''
 class Predictor():
     def __init__(self):
         print('Loading models from expected local directory')
@@ -83,7 +83,7 @@ class Predictor():
     def predict(self, input_text, output_size):
         tokens = self.tfidf.transform([input_text]).todense()
         return self.nn.kneighbors(tokens, n_neighbors=output_size)[1][0]
-'''
+
 # Predictor class loads in pickled model,
 # Predicts recommandations with predict method
 # class Predictor():
