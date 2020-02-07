@@ -16,6 +16,7 @@ numpy = "*"
 sklearn = "*"
 scipy = "*"
 scikit-learn = "==0.20.1"
+spacy = "*"
 
 [requires]
 python_version = "3.6"
