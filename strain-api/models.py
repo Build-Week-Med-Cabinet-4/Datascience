@@ -86,7 +86,7 @@ class Predictor():
         tokens = self.tfidf.transform([input_text]).todense()
         return self.nn.kneighbors(tokens, n_neighbors=output_size)[1][0]
 
-
+'''
 # Recommender class loads in pickled model, recommend several strain ids
 # Currently the model can not be loaded do to the contents of the pickle file
 try:
@@ -102,3 +102,4 @@ except Exception as e:
 def ts_predict(input_index):
     tokens = loaded_tfidf.transform([df.Description[input_index]]).todense()
     return loaded_nn.kneighbors(tokens, n_neighbors=3)[1][0]
+'''
