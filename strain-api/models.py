@@ -98,7 +98,7 @@ try:
 except Exception as e:
     # print(e)
     # print('failed to load')
-
+    pass
 
 def ts_predict(input_index):
     tokens = loaded_tfidf.transform([df.Description[input_index]]).todense()
