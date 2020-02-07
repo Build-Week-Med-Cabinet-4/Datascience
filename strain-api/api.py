@@ -5,10 +5,23 @@ import numpy as np
 from decouple import config
 from flask import Flask, request, jsonify
 from sklearn.externals import joblib
-from .models import DB, User_input, database_update, Predictor
+from .models import DB, User_input, database_update, Predictor, li_recommend
 
 # Calling Predictor class
-lr_model = Predictor()
+try:
+    lr_model = Predictor()
+
+except:
+
+    pass
+
+# Calling load_in_recommender
+try:
+    li_recommend()
+
+except:
+
+    pass
 
 
 # Creating a function for launching api
@@ -54,9 +67,14 @@ def create_api():
         # If no id input
         if id is None:
 
-            # Return tracback respons
-            print('You must specify the strain id')
-            return jsonify({'trace': traceback.format_exc()})
+            # Return meta response
+            response = {"id": id, "prediction": "no prediction" +
+                        " returned given id status None"}
+            return create_json(201, "An id was not specified," +
+                               " must include id input. valid" +
+                               " call example: https://med-ca" +
+                               "binet-4-api.herokuapp.com/se" +
+                               "arch/641", response)
 
         # Attempt to query database info given id
         try:
@@ -75,9 +93,12 @@ def create_api():
                             })
 
         # If query failed print response
-        except Exception as e:
+        except:
 
-            return str(e)
+            response = {"id": id, "prediction": "no prediction" +
+                        " returned given invalid input"}
+            return create_json(200, "GET input must be a valid strain id," +
+                               " valid ids are ints range 0-3018", response)
 
     # A GET request to recommend strains based on similarity to strain input
     @api.route('/recommend/<id>', methods=['GET'])
@@ -93,9 +114,15 @@ def create_api():
 
         # If no id input
         if id is None:
-            # Return tracback respons
-            print('You must specify the strain id')
-            return jsonify({'trace': traceback.format_exc()})
+
+            # Return meta response
+            response = {"id": id, "prediction": "no prediction" +
+                        " returned given id status None"}
+            return create_json(201, "An id was not specified," +
+                               " must include id input. valid" +
+                               " call example: https://med-ca" +
+                               "binet-4-api.herokuapp.com/se" +
+                               "arch/641", response)
 
         # If trained model loaded
         if recommend_model:
@@ -164,14 +191,19 @@ def create_api():
                                 })
 
             # If error occurs
-            except Exception as e:
+            except:
 
-                return str(e)
+                response = {"id": id, "prediction": "no prediction" +
+                            " returned given invalid input"}
+                return create_json(200, "GET input must be a valid" +
+                                   " strain id, valid ids are ints" +
+                                   "range 0-3018", response)
 
         # Triggered if trained model pickle file is not found
         else:
-            print ('Train the model first')
-            return ('No model here to use')
+
+            return ('Failed to load predictive model files, chec' +
+                    'k if api is currently live')
 
     # POST request to make predictions given user inputs
     @api.route('/predict', methods=['POST'])
@@ -216,6 +248,16 @@ def create_api():
                 except:
                     desc = ""
 
+            except:
+
+                response = {"id": "Error", "prediction": "Prediction" +
+                            " not recommended given invalid json input"}
+                return create_json(202, "Must provid valid json inpu" +
+                                   "t. please refer to API document" +
+                                   "ation", response)
+
+            try:
+
                 # Creating input string, predicting on the string
                 # Converting results to int
                 df_inputs = str(positive_effect + ' ' +
@@ -244,13 +286,33 @@ def create_api():
                                 })
 
             # If error occurs
-            except Exception as e:
+            except:
 
-                return str(e)
+                response = {"id": "Error", "prediction": "Predic" +
+                            "tion not recommended, predictive m" +
+                            "odel/ query error"}
+                return create_json(203, "Unable to make predicti" +
+                                   "on or connect to database, " +
+                                   " please check if queried dat" +
+                                   "abase is live", response)
 
         # Triggered if trained model pickle file is not found
         else:
-            print ('Train the model first')
-            return ('No model here to use')
+
+            return ('Failed to load predictive model files, chec' +
+                    'k if api is currently live')
 
     return api
+
+
+# Error code function called when certian errors occur
+def create_json(code, description, dictionary=None):
+    temp = {
+        "meta": {
+            "code": code,
+            "description": description
+        }
+    }
+    if dictionary is not None:
+        temp['response'] = dictionary
+    return temp
