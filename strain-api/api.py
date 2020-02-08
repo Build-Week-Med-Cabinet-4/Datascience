@@ -197,7 +197,7 @@ def create_api():
                             " returned given invalid input"}
                 return create_json(200, "GET input must be a valid" +
                                    " strain id, valid ids are ints" +
-                                   "range 0-3018", response)
+                                   "range 0-2825", response)
 
         # Triggered if trained model pickle file is not found
         else:
@@ -267,6 +267,12 @@ def create_api():
                                 desc)
                 prediction = lr_model.predict(df_inputs, output_size=1)
                 pred = int(prediction)
+
+                # Model predicts from 0 to 3018 ids. but database only houses 0
+                # to 2825 this statement stops api from breaking.
+                # problem will be resolved in future
+                if pred > 2825:
+                    pred = 2000
 
                 # Querying prediction
                 # Returning result prediction and id in json format
