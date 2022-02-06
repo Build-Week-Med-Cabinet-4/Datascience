@@ -1,26 +1,18 @@
 # Importing needed libraries and files
+from os import getenv
+
+ELEPHANTSQL_DATABASE = getenv('ELEPHANTSQL_DATABASE')
+ELEPHANTSQL_USERNAME = getenv('ELEPHANTSQL_USERNAME')
+ELEPHANTSQL_PASSWORD = getenv('ELEPHANTSQL_PASSWORD')
+ELEPHANTSQL_HOST = getenv('ELEPHANTSQL_HOST')
+
+
 import traceback
 import pandas as pd
 import numpy as np
 from flask import Flask, request, jsonify
 from sklearn.externals import joblib
 from .models import DB, User_input, database_update, Predictor, li_recommend
-
-# Calling Predictor class
-try:
-    lr_model = Predictor()
-
-except:
-
-    pass
-
-# Calling load_in_recommender
-try:
-    li_recommend()
-
-except:
-
-    pass
 
 
 # Creating a function for launching api
