@@ -2,6 +2,7 @@
 import traceback
 import pandas as pd
 import numpy as np
+from decouple import config
 from flask import Flask, request, jsonify
 from sklearn.externals import joblib
 from .models import DB, User_input, database_update, Predictor, li_recommend
