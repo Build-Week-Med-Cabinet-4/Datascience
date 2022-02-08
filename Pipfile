@@ -1,24 +1,13 @@
 [[source]]
-name = "pypi"
 url = "https://pypi.org/simple"
 verify_ssl = true
+name = "pypi"
+
+[packages]
+flask = "*"
+pandas = "*"
 
 [dev-packages]
 
-[packages]
-gunicorn = "*"
-psycopg2 = "*"
-flask = "*"
-flask-sqlalchemy = "*"
-python-decouple = "*"
-pandas = "*"
-numpy = "*"
-sklearn = "*"
-scipy = "*"
-scikit-learn = "==0.20.1"
-spacy = "*"
-joblib = "*"
-en-core-web-sm = {file = "https://github.com/explosion/spacy-models/releases/download/en_core_web_sm-2.2.0/en_core_web_sm-2.2.0.tar.gz"}
-
 [requires]
-python_version = "3.6"
+python_version = "3.7"
