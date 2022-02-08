@@ -81,11 +81,9 @@ The unit testing done is within the “api.test.py” file located in the main d
 
 To perform Unit testing run the “api.test.py” file.
 
-**Test One**
+**Test One** ```test_recommend```
 
-Checks for strain names json output response
-
-```test_recommend```
+Checks for strain names JSON output response
 
 Test inputs :
 
@@ -111,13 +109,9 @@ status_code = 401
 content_type = “application/json”
 ```
 
-**Test Two**
+**Test Two** ```test_content_type```
 
 Checks for the proper content-type response
-
-```
-test_content_type
-```
 
 Test inputs :
 
@@ -136,13 +130,9 @@ status_code = 401
 output = “Content-Type not supported!”
 ```
 
-**Test Three**
+**Test Three** ```test_data_type```
 
 Checks for proper key values response
-
-```
-test_data_type
-```
 
 Test inputs :
 
@@ -160,13 +150,9 @@ output = “user_input key is missing from json
                file or user_input value is not equal to string.”
 ```
 
-**Test Four**
+**Test Four** ```test_data_type_two```
 
 Checks for proper key-value pairs response
-
-```
-test_data_type_two
-```
 
 Test inputs :
 
