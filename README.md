@@ -54,7 +54,7 @@ Deployed on Heroku is a Flask API that takes a JSON package user input containin
 
 **Calling the API**
 
-Example input package POST request to ```https://strain-api.herokuapp.com/recommend```
+Example input package POST request to ```https://med-cabinet-4-api.herokuapp.com/recommend```
 ```
 {
 "User_input”: "'indica, pine, berry, chemical,
