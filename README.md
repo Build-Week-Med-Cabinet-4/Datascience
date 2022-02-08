@@ -75,6 +75,114 @@ Example output to be received
 }
 ```
 
+**API Unit Testing**
+
+The unit testing done is within the “api.test.py” file located in the main directory. Four tests have been created to test the functionality and error response of the “/recommend” route of the API.
+
+To perform Unit testing run the “api.test.py” file.
+
+**Test One**
+
+Checks for the functioning out response
+
+```test_recommend```
+
+Test inputs :
+
+```
+data={"user_input": "indica, lavender, sweet, 
+          pepper, relaxed, tingly, happy, creative, 
+          aroused, depression, cramps, pain, 
+          stress, muscle spasms"}
+
+content_type=”application/json”
+```
+Expected output
+
+```
+{"strain_five": "Critical Sensi Star",
+ "strain_four": "Blackberry Rhino",
+ "strain_one": "Bhang Mr. Nice",
+ "strain_three": "Bhang Lavender Kush",
+ "strain_two": "Candy Cane"}
+
+status_code = 401
+
+content_type = “application/json”
+```
+
+**Test Two**
+
+Checks for the proper content-type response
+
+```
+test_content_type
+```
+
+Test inputs :
+
+```
+data="indica, lavender, sweet, pepper, 
+          relaxed, tingly, happy, creative, aroused, 
+          depression, cramps, pain, stress, muscle spasms"
+
+content_type=”html/text”
+```
+Expected output
+
+```
+status_code = 401
+
+output = “Content-Type not supported!”
+```
+
+**Test Three**
+
+Checks for proper key values response
+
+```
+test_data_type
+```
+
+Test inputs :
+
+```
+data={"positive_effect": "relaxed, tingly, happy, creative, aroused"}
+
+content_type=”application/json”
+```
+Expected output
+
+```
+status_code = 401
+
+output = “user_input key is missing from json 
+               file or user_input value is not equal to string.”
+```
+
+**Test Four**
+
+Checks for proper key-value pairs response
+
+```
+test_data_type_two
+```
+
+Test inputs :
+
+```
+data={"user_input": ['relaxed', 'tingly', 'happy', 'creative', 'aroused']}
+
+content_type=”application/json”
+```
+Expected output
+
+```
+status_code = 401
+
+output = “user_input key is missing from json 
+               file or user_input value is not equal to string.”
+```
 
 ## Overview of the Strain Recommendation Process
 
