@@ -83,7 +83,7 @@ To perform Unit testing run the “api.test.py” file.
 
 **Test One**
 
-Checks for the functioning out response
+Checks for strain names json output response
 
 ```test_recommend```
 
