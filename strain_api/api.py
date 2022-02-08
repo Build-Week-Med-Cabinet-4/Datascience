@@ -27,7 +27,7 @@ def create_strain_api():
         content_type = request.headers.get('Content-Type')
         if (content_type == 'application/json'):
             json = request.json
-            if json['user_input'] and type(json['user_input']) == str:     # Json package contain user_input key and value str
+            if 'user_input' in json.keys() and type(json['user_input']) == str:     # Json package contain user_input key and value str
 
                 strain_one, strain_two, strain_three, strain_four, strain_five = model.predict(json['user_input'])      # Recommendation class
 
